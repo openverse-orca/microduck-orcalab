@@ -9,7 +9,7 @@
     <a href="https://openverse-orca.github.io/microduck-orcalab/"><img src="https://img.shields.io/badge/docs-GitHub_Pages-blueviolet" alt="Docs"></a>
     <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" alt="License"></a>
   </p>
-  <p><em>🚀 无需浏览器、无需训练代码 —— 一个脚本，在 OrcaLab 本地玩转 14 自由度的鸭子机器人 Microduck。</em></p>
+  <p><em>🚀 快速在 OrcaLab 本地玩转 14 自由度的鸭子机器人 Microduck。</em></p>
 </div>
 
 ---
