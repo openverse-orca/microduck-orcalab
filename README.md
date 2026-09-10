@@ -19,10 +19,9 @@
 **Microduck** 是一台 **14 自由度的鸭子形机器人**（两腿 + 脖子 + 头）。本项目旨在让你只用一个脚本就能在[OrcaLab](https://github.com/openverse-orca/orcalab) 平台本地试玩 Microduck。
 
 
-<!-- 把录制好的 example.gif 放到 asset/ 下（同名覆盖即可），下面的图会自动显示 -->
-<p align="center">
-  <img src="asset/example.gif" alt="Microduck 演示：多策略键盘实时切换" width="80%"/>
-</p>
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/b5180f19-61ab-4a0a-bc32-d94edf97fe90" width="100%" autoplay loop muted controls playsinline></video>
+</div>
 
 
 ## 🚀 快速开始
