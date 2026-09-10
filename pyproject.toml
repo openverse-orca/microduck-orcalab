@@ -1,0 +1,47 @@
+[project]
+name = "microduck-orcalab"
+version = "0.1.0"
+description = "Standalone ONNX-policy control for the Microduck robot in OrcaLab"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "Apache-2.0"
+authors = [{ name = "openverse-orca" }]
+keywords = ["mujoco", "onnx", "robot", "reinforcement-learning", "orcalab"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "torch==2.12.0",
+    "mujoco==3.7.0",
+    "mujoco-warp==3.5.0",
+    "warp-lang==1.12.0",
+    "onnxruntime==1.29.0",
+    "numpy==2.2.6",
+    "orca-lab==26.7.3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.6",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+# 第三方 vendored 代码不参与 lint
+extend-exclude = ["vendor"]
+
+[tool.ruff.lint]
+# E/F 基础检查 + W 警告 + UP 现代语法 + B bugbear
+select = ["E", "F", "W", "UP", "B"]
+# 行长交给 formatter 处理，避免 lint 噪音
+ignore = ["E501"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.setuptools]
+packages = []
