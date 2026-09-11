@@ -1,4 +1,5 @@
 # Microduck · OrcaLab 完整教程：从数学到代码
+> **作者：Claude Code**
 
 > 一份**自包含**的完整教程：不假设你懂机器人、物理仿真或强化学习，只要求你会一点 Python。
 > 我们从直觉出发，把每一条数学公式严格推导出来，再逐行对上仓库里的真实代码，最后落到「怎么跑起来」。
@@ -171,7 +172,7 @@ qpos = [*ROOT_POS, 1.0, 0.0, 0.0, 0.0] + list(DEFAULT_POSE)   # 7 + 14 = 21
 <!-- ≈ -25° 到 +30° -->
 ```
 
-`DEFAULT_POSE` 里的数就是**站立时每个关节的角度**（弧度， $1\ \text{rad} \approx 57.3°$）：
+`DEFAULT_POSE` 里的数就是**站立时每个关节的角度**（弧度， $1\ \text{rad} \approx 57.3^{\circ}$）：
 
 ```
 left_hip_pitch = -0.457924 rad ≈ -26°    （左髋前倾）
@@ -213,7 +214,7 @@ $(x,y,z)$ 是「向量部分」（表示旋转轴，已经被 $\sin\frac{\theta}
 用两个特例立刻验证这个直觉：
 
 - **不旋转**（ $\theta=0$）→ $q=(1,0,0,0)$。这正是代码里 `1.0, 0, 0, 0` 的含义。
-- **绕 z 轴转 90°**（ $\theta=90°$）→ $q=(\cos45°,\ 0,\ 0,\ \sin45°) = (0.707,\ 0,\ 0,\ 0.707)$。
+- **绕 z 轴转 90°**（ $\theta=90^{\circ}$）→ $q=(\cos45^{\circ},\ 0,\ 0,\ \sin45^{\circ}) = (0.707,\ 0,\ 0,\ 0.707)$。
 
 **⚠️ 顺序是 wxyz**：MuJoCo 和本项目用 `wxyz` 顺序（很多库是 `xyzw`，混用会得到完全错误的结果）：
 
@@ -317,12 +318,12 @@ $$
 
 投影重力 = 用躯干四元数 $q$ 的**逆**把它转到机体系：
 
-$$
+```math
 \begin{aligned}
 \mathbf{g}_{\text{body}} &= q^{-1} \otimes \mathbf{g}_{\text{world}} \otimes q \\
-&= \text{quat\_apply\_inverse}(q,\ \mathbf{g}_{\text{world}})
+&= \texttt{quat\_apply\_inverse}(q,\ \mathbf{g}_{\text{world}})
 \end{aligned}
-$$
+```
 
 **代码对照**（`scripts/run_duck.py:100-103` 的 `build_obs`）：
 
@@ -355,8 +356,8 @@ g_z &= \mathbf{g}_{\text{world}} \cdot \hat{\mathbf{z}}_{\text{body}} \\
 $$
 
 - 直立（ $\theta=0$）→ $g_z = -1$
-- 倾斜 30° → $-\cos30° = -0.866$
-- 躺平（ $\theta=90°$）→ $-\cos90° = 0$
+- 倾斜 30° → $-\cos30^{\circ} = -0.866$
+- 躺平（ $\theta=90^{\circ}$）→ $-\cos90^{\circ} = 0$
 
 **这正是代码里所有判据的数学来源**（`scripts/run_duck_multi_policy.py:221-226` 的 `proj_grav_z`）：
 
