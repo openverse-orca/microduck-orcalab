@@ -132,6 +132,7 @@ microduck-orcalab/
 │   ├── run_duck.sh              # 单策略启动脚本（已配好 OrcaLab 参数）
 │   ├── run_duck_multi_policy.py # 多策略键盘实时切换
 │   └── run_duck_multi_policy.sh # 多策略启动脚本
+├── docs/                        # 基础教学文档（新手教程、原理详解）
 ├── policy/                      # ONNX 策略文件（61 维观测 / 14 维动作）
 ├── robot/                       # 机器人模型与网格（XML / STL 部件）
 ├── docs/                        # 文档源码（mkdocs 站点）
@@ -145,6 +146,8 @@ microduck-orcalab/
 ## 🧠 模型训练
 参考官方模型训练仓库：[microduck_rl](https://github.com/pollen-robotics/microduck_rl)
 
+## 📄 文档
+如果你想理解 Microduck 背后的原理，请阅读 [完整教学文档](docs/tutorial.md)。
 
 ## 🤝 贡献
 欢迎提 issue 与 PR。
