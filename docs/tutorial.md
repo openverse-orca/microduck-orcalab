@@ -1,4 +1,5 @@
 # Microduck · OrcaLab 完整教程：从数学到代码
+> **作者：Claude Code**
 
 > 一份**自包含**的完整教程：不假设你懂机器人、物理仿真或强化学习，只要求你会一点 Python。
 > 我们从直觉出发，把每一条数学公式严格推导出来，再逐行对上仓库里的真实代码，最后落到「怎么跑起来」。
@@ -320,7 +321,7 @@ $$
 $$
 \begin{aligned}
 \mathbf{g}_{\text{body}} &= q^{-1} \otimes \mathbf{g}_{\text{world}} \otimes q \\
-&= \mathtt{quat\_apply\_inverse}(q,\ \mathbf{g}_{\text{world}})
+&= \text{quat\textunderscore apply\textunderscore inverse}(q,\ \mathbf{g}_{\text{world}})
 \end{aligned}
 $$
 
