@@ -320,7 +320,7 @@ $$
 $$
 \begin{aligned}
 \mathbf{g}_{\text{body}} &= q^{-1} \otimes \mathbf{g}_{\text{world}} \otimes q \\
-&= \text{quat\_apply\_inverse}(q,\ \mathbf{g}_{\text{world}})
+&= \mathtt{quat\_apply\_inverse}(q,\ \mathbf{g}_{\text{world}})
 \end{aligned}
 $$
 
