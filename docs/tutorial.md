@@ -129,10 +129,10 @@
 把这些数排成一列，就是**广义坐标 `qpos`**：
 
 $$
-\underbrace{[x,\ y,\ z]}_{\text{躯干位置}}
-\ \underbrace{[w,\ x,\ y,\ z]}_{\text{躯干朝向（四元数）}}
-\ \underbrace{[q_1,\ q_2,\ \dots,\ q_{14}]}_{\text{14 个关节角}}
-\quad\Rightarrow\quad 3 + 4 + 14 = 21\ \text{个数}
+\underbrace{[x,\ y,\ z]}_{\text{trunk position}}
+\ \underbrace{[w,\ x,\ y,\ z]}_{\text{trunk orientation (quaternion)}}
+\ \underbrace{[q_1,\ q_2,\ \dots,\ q_{14}]}_{\text{14 joint angles}}
+\quad\Rightarrow\quad 3 + 4 + 14 = 21\ \text{numbers}
 $$
 
 把它摊开写就是：
@@ -231,8 +231,7 @@ q = [w, x, y, z]        # w 是标量部分，x,y,z 是向量部分
 四元数乘法记作 $\otimes$，**不满足交换律**（先绕 A 再绕 B ≠ 先绕 B 再绕 A）：
 
 $$
-q_1 \otimes q_2 = \Big(\ w_1 w_2 - \mathbf{u}_1 \cdot \mathbf{u}_2\ ,\quad
-w_1 \mathbf{u}_2 + w_2 \mathbf{u}_1 + \mathbf{u}_1 \times \mathbf{u}_2\ \Big)
+q_1 \otimes q_2 = \Big(\ w_1 w_2 - \mathbf{u}_1 \cdot \mathbf{u}_2\ ,\quad w_1 \mathbf{u}_2 + w_2 \mathbf{u}_1 + \mathbf{u}_1 \times \mathbf{u}_2\ \Big)
 $$
 
 其中 $\cdot$ 是点积，$\times$ 是叉积。直觉：**$q_1 \otimes q_2$ = 先做 $q_2$ 的旋转，再做 $q_1$ 的旋转**。
@@ -276,8 +275,10 @@ def quat_apply_inverse(q: torch.Tensor, v: torch.Tensor) -> torch.Tensor:
 把 $t = 2(\mathbf{u}\times\mathbf{v})$ 代回去，正是上面「反向」公式：
 
 $$
-\text{返回} = \mathbf{v} - w\,t + \mathbf{u}\times t
-= \mathbf{v} - 2w(\mathbf{u}\times\mathbf{v}) + 2\,\mathbf{u}\times(\mathbf{u}\times\mathbf{v})
+\begin{aligned}
+\text{return} &= \mathbf{v} - w\,t + \mathbf{u}\times t \\
+&= \mathbf{v} - 2w(\mathbf{u}\times\mathbf{v}) + 2\,\mathbf{u}\times(\mathbf{u}\times\mathbf{v})
+\end{aligned}
 $$
 
 **语义**：`quat_apply_inverse(q, v)` 把**世界系**向量 $\mathbf{v}$ 用 $q$ 的**逆**旋转，得到它在
@@ -317,8 +318,10 @@ $$
 投影重力 = 用躯干四元数 $q$ 的**逆**把它转到机体系：
 
 $$
-\mathbf{g}_{\text{body}} = q^{-1} \otimes \mathbf{g}_{\text{world}} \otimes q
-= \text{quat\_apply\_inverse}(q,\ \mathbf{g}_{\text{world}})
+\begin{aligned}
+\mathbf{g}_{\text{body}} &= q^{-1} \otimes \mathbf{g}_{\text{world}} \otimes q \\
+&= \text{quat\_apply\_inverse}(q,\ \mathbf{g}_{\text{world}})
+\end{aligned}
 $$
 
 **代码对照**（`scripts/run_duck.py:100-103` 的 `build_obs`）：
@@ -345,8 +348,10 @@ $\hat{\mathbf{z}}_{\text{body}} = [0,\ \sin\theta,\ \cos\theta]$。
 世界重力 $[0,0,-1]$ 在机体系 $z$ 轴上的分量由点积给出：
 
 $$
-g_z = \mathbf{g}_{\text{world}} \cdot \hat{\mathbf{z}}_{\text{body}}
-    = [0,\ 0,\ -1] \cdot [0,\ \sin\theta,\ \cos\theta] = -\cos\theta
+\begin{aligned}
+g_z &= \mathbf{g}_{\text{world}} \cdot \hat{\mathbf{z}}_{\text{body}} \\
+    &= [0,\ 0,\ -1] \cdot [0,\ \sin\theta,\ \cos\theta] = -\cos\theta
+\end{aligned}
 $$
 
 - 直立（$\theta=0$）→ $g_z = -1$
@@ -670,8 +675,10 @@ $$
 参数量核对：
 
 $$
-(512\times61 + 512) + (256\times512 + 256) + (128\times256 + 128) + (14\times128 + 14)
-= 31{,}744 + 131{,}328 + 32{,}896 + 1{,}806 = 197{,}774 \quad\checkmark
+\begin{aligned}
+& (512\times61 + 512) + (256\times512 + 256) + (128\times256 + 128) + (14\times128 + 14) \\
+&= 31{,}744 + 131{,}328 + 32{,}896 + 1{,}806 = 197{,}774 \quad\checkmark
+\end{aligned}
 $$
 
 > 一句大白话：每层就是「把输入的数乘上一大张权重表，再加一组偏置」。512 个神经元 = 512 个不同的
@@ -684,7 +691,7 @@ $$
 $$
 \text{ELU}(z) =
 \begin{cases}
-z, & z \ge 0 \\[2pt]
+z, & z \ge 0 \\
 \alpha\,(e^{z} - 1), & z < 0
 \end{cases}
 \qquad (\alpha = 1)
