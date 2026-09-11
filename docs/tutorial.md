@@ -318,12 +318,12 @@ $$
 
 投影重力 = 用躯干四元数 $q$ 的**逆**把它转到机体系：
 
-$$
+```math
 \begin{aligned}
 \mathbf{g}_{\text{body}} &= q^{-1} \otimes \mathbf{g}_{\text{world}} \otimes q \\
-&= \mathrm{quat\_apply\_inverse}(q,\ \mathbf{g}_{\text{world}})
+&= \texttt{quat\_apply\_inverse}(q,\ \mathbf{g}_{\text{world}})
 \end{aligned}
-$$
+```
 
 **代码对照**（`scripts/run_duck.py:100-103` 的 `build_obs`）：
 
